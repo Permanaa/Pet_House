@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-shadow */
 import React from 'react';
-import { View, Image, TextInput, Alert, ToastAndroid } from 'react-native';
+import { View, Image, TextInput, Alert, ToastAndroid, Text } from 'react-native';
 // import axios from 'axios';
 import PropTypes from 'prop-types';
 import MainScreen from '../../components/layouts/MainScreen';
@@ -26,26 +26,9 @@ export default class Component extends React.Component {
     this._showPass = this._showPass.bind(this);
   }
 
-  UNSAFE_componentWillMount() {
-    this.checkToken();
-  }
-
-  checkToken = async () => {
-    this.setState({
-      isLoading: true
-    });
-
-    const token = await storage.get(STORAGE_KEY.TOKEN_LOGIN);
-
-    if (token) {
-      const { navigation } = this.props;
-      navigation.navigate('Home');
-    }
-
-    this.setState({
-      isLoading: false
-    });
-  };
+  // UNSAFE_componentWillMount() {
+  //   this.checkToken();
+  // }
 
   _showPass = () => {
     this.setState({ isHidden: !this.state.isHidden });
@@ -57,10 +40,13 @@ export default class Component extends React.Component {
   };
   _signin = () => {
     const { navigation } = this.props;
-    navigation.navigate('Home');
+    navigation.navigate('App');
   };
   _signIn = async () => {
     const { email, password } = this.state;
+
+    this.setState({isLoading: true})
+
     const params = { email, password };
     if (email === '' && password === '') {
       Alert.alert('Mohon Di isi!');
@@ -71,7 +57,7 @@ export default class Component extends React.Component {
         if (result.code === 200) {
           await storage.set(STORAGE_KEY.TOKEN_LOGIN, result.data.token);
           Alert.alert(JSON.stringify(result.data.code), 'Succses');
-          this.props.navigation.navigate('Home');
+          this.props.navigation.navigate('App');
         } else {
           ToastAndroid.show('Failed to Login', ToastAndroid.SHORT);
         }
@@ -79,6 +65,8 @@ export default class Component extends React.Component {
         ToastAndroid.show('error.networkError', ToastAndroid.SHORT);
       }
     }
+
+    this.setState({isLoading: false})
   };
 
   render() {
@@ -91,7 +79,8 @@ export default class Component extends React.Component {
           <View style={styles.logoContainer}>
             <Image source={IMAGES.appLogo} resizeMode="contain" style={styles.logo} />
           </View>
-          <View style={styles.margin2} />
+        </View>
+        <View style={styles.inputWrapper}>
           <View style={styles.row}>
             <Button
               customText={styles.outlinedText}
@@ -100,14 +89,12 @@ export default class Component extends React.Component {
               onPress={this._signUp}
             />
             <Button
-              customText={styles.outlinedText}
+              customText={[styles.outlinedText,{color: '#fff'}]}
               title={I18n.t('signUp')}
               customContainer={styles.btn2}
               onPress={this._signUp}
             />
           </View>
-        </View>
-        <View>
           <View style={styles.inputContainer}>
             <View style={styles.ImgCon}>
               <Image source={IMAGES.img} resizeMode="contain" style={styles.Image} />
@@ -145,7 +132,6 @@ export default class Component extends React.Component {
             />
           </View>
         </View>
-        <View style={styles.margin} />
       </MainScreen>
     );
   }

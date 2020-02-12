@@ -5,24 +5,45 @@ import MainScreen from '../../components/layouts/MainScreen';
 import IMAGES from '../../configs/images';
 import styles from './styles';
 import I18n from '../../i18n';
+import Loading from '../../components/elements/Loading'
+import { STORAGE_KEY } from '../../constants';
+import storage from '../../utils/storage';
 
 export default class Component extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // isLoading: false,
+      isLoading: false,
       // title: ''
     };
   }
-  // componentWillMount() {
-  //   this._loadData();
-  // }
+
+  componentWillMount() {
+    this.checkToken()
+  }
 
   // _loadData = () => {
   //   axios.get('http://3.92.245.121:9000/api/article/v1').then(res => {
   //     this.setState({ title: res.data.data.title });
   //   });
   // };
+
+  checkToken = async () => {
+    this.setState({
+      isLoading: true
+    });
+
+    const token = await storage.get(STORAGE_KEY.TOKEN_LOGIN);    
+
+    if (Object.keys(token).length == 0) {
+      const { navigation } = this.props;
+      navigation.navigate('SignIn');  
+    }
+
+    this.setState({
+      isLoading: false
+    });
+  };
 
   _artikel = () => {
     const { navigation } = this.props;
@@ -43,6 +64,9 @@ export default class Component extends React.Component {
 
   render() {
     return (
+      this.state.isLoading === true ?
+        <Loading />
+      :
       <MainScreen>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.containerHeader}>
