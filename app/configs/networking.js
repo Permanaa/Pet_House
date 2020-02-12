@@ -29,7 +29,6 @@ const fetchData = async (url, params, customHeaders) => {
         ...headers,
         Authorization: `Bearer ${token}`
       };
-      console.log(headers);
     }
   }
 

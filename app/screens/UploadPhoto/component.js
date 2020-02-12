@@ -12,7 +12,7 @@ export default class Component extends React.Component {
   render() {
     return (
       <MainScreen style={styles.container}>
-        <Header title="Upload Photo" setting back />
+        <Header title="Upload Photo" back={false} />
         <View style={styles.container}>
           <Button title="title" disabled={false} onPress={this._onPress} type="raised-ripple" />
           <Add />

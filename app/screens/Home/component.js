@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native';
 // import axios from 'axios';
 import MainScreen from '../../components/layouts/MainScreen';
-import Header from '../../components/elements/Header';
 import IMAGES from '../../configs/images';
 import styles from './styles';
 import I18n from '../../i18n';
@@ -21,7 +20,6 @@ export default class Component extends React.Component {
 
   // _loadData = () => {
   //   axios.get('http://3.92.245.121:9000/api/article/v1').then(res => {
-  //     console.log(res);
   //     this.setState({ title: res.data.data.title });
   //   });
   // };
@@ -46,19 +44,27 @@ export default class Component extends React.Component {
   render() {
     return (
       <MainScreen>
-        <Header title="Pet Home" />
         <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.containerHeader}>
+            <Text style={styles.titleHeader}>Pet House</Text>
+          </View>
           <View style={styles.container2}>
             <TouchableOpacity onPress={this._adop} style={styles.container6}>
-              <Image source={IMAGES.adop} style={styles.imgContainer3} />
+              <View style={styles.menuImageWrapper}>
+                <Image source={IMAGES.adop} style={styles.imgContainer3} />
+              </View>
               <Text style={styles.text4}>{I18n.t('adop')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this._artikel} style={styles.container6}>
-              <Image source={IMAGES.artikel} style={styles.imgContainer3} />
+              <View style={styles.menuImageWrapper}>
+                <Image source={IMAGES.artikel} style={styles.imgContainer3} />
+              </View>
               <Text style={styles.text4}>{I18n.t('artikel')}</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={this._sel} style={styles.container6}>
-              <Image source={IMAGES.sel} style={styles.imgContainer3} />
+              <View style={styles.menuImageWrapper}>
+                <Image source={IMAGES.sel} style={styles.imgContainer3} />
+              </View>
               <Text style={styles.text4}>{I18n.t('sel')}</Text>
             </TouchableOpacity>
           </View>

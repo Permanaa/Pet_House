@@ -17,6 +17,6 @@ export default SwitchNavigator(
     App: Drawer
   },
   {
-    initialRouteName: 'SignIn'
+    initialRouteName: 'App'
   }
 );

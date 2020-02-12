@@ -82,7 +82,7 @@ export const AppStack = createTabNavigator([
   //   }
   // },
   {
-    label: 'Photo',
+    label: 'Upload',
     stack: UploadPhotoStack,
     image: {
       active: <Add active />,

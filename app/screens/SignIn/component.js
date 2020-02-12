@@ -12,6 +12,7 @@ import IMAGES from '../../configs/images';
 import { ENDPOINT } from '../../configs';
 import { STORAGE_KEY } from '../../constants';
 import storage from '../../utils/storage';
+import Loading from '../../components/elements/Loading';
 
 export default class Component extends React.Component {
   constructor(props) {
@@ -24,6 +25,27 @@ export default class Component extends React.Component {
     };
     this._showPass = this._showPass.bind(this);
   }
+
+  UNSAFE_componentWillMount() {
+    this.checkToken();
+  }
+
+  checkToken = async () => {
+    this.setState({
+      isLoading: true
+    });
+
+    const token = await storage.get(STORAGE_KEY.TOKEN_LOGIN);
+
+    if (token) {
+      const { navigation } = this.props;
+      navigation.navigate('Home');
+    }
+
+    this.setState({
+      isLoading: false
+    });
+  };
 
   _showPass = () => {
     this.setState({ isHidden: !this.state.isHidden });
@@ -61,7 +83,9 @@ export default class Component extends React.Component {
 
   render() {
     const { isLoading, email, password, isHidden } = this.state;
-    return (
+    return isLoading === true ? (
+      <Loading />
+    ) : (
       <MainScreen isLoading={isLoading} style={styles.mainContainer}>
         <View style={styles.container2}>
           <View style={styles.logoContainer}>

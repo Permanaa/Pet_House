@@ -58,20 +58,17 @@ export default class Component extends React.Component {
       <ScrollView>
         <Header title="Adopsi" back />
         <View style={styles.container3}>
-          {this.state.adoptions.map(adoption => {
-            console.log(adoption);
-            return (
-              <TouchableOpacity style={styles.container4} onPress={this._detail}>
-                <Image source={IMAGES.anjing} style={styles.imgContainer2} />
-                <View style={styles.column2}>
-                  <Text style={styles.title}>{adoption.name}</Text>
-                  <Text style={styles.ket}>{adoption.age}</Text>
-                  <Text style={styles.ket}>{adoption.gender}</Text>
-                  <Text style={styles.ket}>{adoption.regency}</Text>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
+          {this.state.adoptions.map(adoption => (
+            <TouchableOpacity style={styles.container4} onPress={this._detail}>
+              <Image source={IMAGES.anjing} style={styles.imgContainer2} />
+              <View style={styles.column2}>
+                <Text style={styles.title}>{adoption.name}</Text>
+                <Text style={styles.ket}>{adoption.age}</Text>
+                <Text style={styles.ket}>{adoption.gender}</Text>
+                <Text style={styles.ket}>{adoption.regency}</Text>
+              </View>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
     );

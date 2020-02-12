@@ -37,6 +37,7 @@ export const COLOR_GREY_LIGHT = '#828282';
 export const COLOR_GREY = gray.gray_50;
 export const COLOR_GREY_DARK = gray.gray_70;
 export const COLOR_BLACK = black;
+export const COLOR_TITLE1 = '#4F4F4F';
 export const COLOR_BLACK_OPACITY50 = 'rgba(0,0,0,0.5)';
 export const COLOR_TRANSPARENT = 'rgba(0,0,0,0)';
 
